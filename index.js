@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
@@ -10,19 +11,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/popular", async (request, response) => {
   try {
-    const query = request.query;
-    const body = request.body;
-    const result = await axios.request({
+    const popularResult = await axios.request({
       method: "GET",
       url: "https://api.themoviedb.org/3/movie/popular",
       params: { language: "ja-JP", page: "1" },
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjIyNzRiMzJjMTgwM2ZmNWJmMGFkYjg2ZmNiZmQ4ZCIsInN1YiI6IjY0NmRjYjc0OTY2MWZjMDExZDk1NzlhZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6abkUx93_XOwAaIbBxBseBK-1KBWYpoBLMKoIdQ7U9I",
+        Authorization: "Bearer" + process.env.API_KEY,
       },
     });
-    response.json(result.data);
+    response.json(popularResult.data);
+    console.log(popularResult.data);
   } catch (error) {
     response.status(500);
     response.json({ error: error.message });
@@ -32,7 +31,7 @@ app.get("/popular", async (request, response) => {
 app.get("/search", async (request, response) => {
   const params = request.query;
   try {
-    const getResult = await axios.request({
+    const searchResult = await axios.request({
       method: "GET",
       url: "https://api.themoviedb.org/3/search/movie",
       params: {
@@ -43,13 +42,12 @@ app.get("/search", async (request, response) => {
       },
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MjIyNzRiMzJjMTgwM2ZmNWJmMGFkYjg2ZmNiZmQ4ZCIsInN1YiI6IjY0NmRjYjc0OTY2MWZjMDExZDk1NzlhZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6abkUx93_XOwAaIbBxBseBK-1KBWYpoBLMKoIdQ7U9I",
+        Authorization: "Bearer" + process.env.API_KEY,
       },
     });
     // const convertJson = JSON.stringify(getResult.data);
-    response.json(getResult.data);
-    console.log("api", params.query);
+    response.json(searchResult.data);
+    console.log("search", searchResult.data);
   } catch (error) {
     response.status(500);
     response.json({ error: error.message });
