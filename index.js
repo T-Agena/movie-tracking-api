@@ -54,6 +54,26 @@ app.get("/search", async (request, response) => {
   }
 });
 
+app.get("/detail", async (request, response) => {
+  const id = request.query;
+  try {
+    const detaileResults = await axios.request({
+      method: "GET",
+      url: "https://api.themoviedb.org/3/movie/" + id,
+      params: { language: "ja-JP" },
+      headers: {
+        accept: "application/json",
+        Authorization: "Bearer" + process.env.API_KEY,
+      },
+    });
+    response.json(detaileResults.data);
+    console.log("detaile", detaileResults.data);
+  } catch (error) {
+    response.status(500);
+    response.json({ error: error.message });
+  }
+});
+
 app.listen(4000, () => {
   console.log("server running on http://localhost:4000");
 });
