@@ -59,7 +59,7 @@ app.get("/detail", async (request, response) => {
   try {
     const detaileResults = await axios.request({
       method: "GET",
-      url: "https://api.themoviedb.org/3/movie/" + id,
+      url: "https://api.themoviedb.org/3/movie/" + id.query,
       params: { language: "ja-JP" },
       headers: {
         accept: "application/json",
@@ -67,7 +67,7 @@ app.get("/detail", async (request, response) => {
       },
     });
     response.json(detaileResults.data);
-    console.log("detaile", detaileResults.data);
+    console.log("detaile", id);
   } catch (error) {
     response.status(500);
     response.json({ error: error.message });
