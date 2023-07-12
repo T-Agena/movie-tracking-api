@@ -50,7 +50,7 @@ app.get("/search", async (request, response) => {
     console.log("search", params);
   } catch (error) {
     response.status(500);
-    response.json({ error: error });
+    response.json({ error: error.message });
   }
 });
 
