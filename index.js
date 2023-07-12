@@ -17,7 +17,7 @@ app.get("/popular", async (request, response) => {
       params: { language: "ja-JP", page: "1" },
       headers: {
         accept: "application/json",
-        Authorization: "Bearer" + process.env.API_KEY,
+        Authorization: "Bearer " + process.env.API_KEY,
       },
     });
     response.json(popularResult.data);
@@ -42,7 +42,7 @@ app.get("/search", async (request, response) => {
       },
       headers: {
         accept: "application/json",
-        Authorization: "Bearer" + process.env.API_KEY,
+        Authorization: "Bearer " + process.env.API_KEY,
       },
     });
     // const convertJson = JSON.stringify(getResult.data);
@@ -63,7 +63,7 @@ app.get("/detail", async (request, response) => {
       params: { language: "ja-JP" },
       headers: {
         accept: "application/json",
-        Authorization: "Bearer" + process.env.API_KEY,
+        Authorization: "Bearer " + process.env.API_KEY,
       },
     });
     response.json(detaileResults.data);
