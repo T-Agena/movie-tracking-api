@@ -47,10 +47,10 @@ app.get("/search", async (request, response) => {
     });
     // const convertJson = JSON.stringify(getResult.data);
     response.json(searchResult.data);
-    console.log("search", searchResult.data);
+    console.log("search", params);
   } catch (error) {
     response.status(500);
-    response.json({ error: error.message });
+    response.json({ error: error });
   }
 });
 
